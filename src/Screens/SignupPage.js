@@ -9,8 +9,11 @@ import {
   MenuItem
 } from '@mui/material';
 import backG from '../assets/backG.jpeg';
+import { Context as AuthContext} from '../Context/AuthContext';
 
 export default function SignupScreen() {
+const {state : {LoginData,LoginStatus,RegisterData,Registerstatus,},clearUserRegisterStatus,RegisterUser,UserLogin}=React.useContext(AuthContext)
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -30,23 +33,26 @@ export default function SignupScreen() {
     });
   };
 
-  const handleSignup = (e) => {
-    e.preventDefault();
+ const handleSignup = async (e) => {
+  e.preventDefault();
 
-    // Simple validation
-    if (!formData.name || !formData.email || !formData.password) {
-      alert('Please fill required fields');
-      return;
-    }
+  if (!formData.name || !formData.email || !formData.password) {
+    alert("Please fill required fields");
+    return;
+  }
 
-    console.log('User Registered:', formData);
+  // Call backend
+  await RegisterUser(formData); // Sends all formData to backend
 
-    alert('Signup Successful!');
-
-    // After signup go to login
-    navigate('/');
-  };
-
+  // Check status after registering
+  if (Registerstatus === 201) {
+    alert("Signup Successful!");
+    navigate("/"); // go to login page
+    clearUserRegisterStatus()
+  } else {
+    alert("Signup failed, please try again");
+  }
+};
   return (
     <Box
       sx={{

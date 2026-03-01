@@ -7,12 +7,15 @@ const AuthReducer = (state, action)=>{
             return {...state, LoginData : action.payload};
         case 'login_status':
             return {...state, LoginStatus:action.payload};
+        case "clear_login_status":
+            return { ...state, LoginStatus: "" };    
         
         case 'register':
             return { ...state , RegisterData: action.payload}; 
         case 'register_Status':
             return {...state,Registerstatus:action.payload};
-
+   case "clear_register_status":
+            return { ...state, Registerstatus: "" };
      default:
         return state;       
     }
@@ -41,16 +44,23 @@ const UserLogin = dispatch => async({ email,password})=>{
     }
 }
 
-const RegisterUser = dispatch => async ({name,age,sex,address,phone,email,passowrd})=>{
-    try{
-    let data = {
-    name:name,
-    age:age,
-    address:address,
-    phone:phone,
-    email:email,
-    passowrd:passowrd,
-    sex:sex
+const clearLoginStatus = dispatch => () => {
+    dispatch({ type: "clear_login_status" });
+};
+
+const RegisterUser = dispatch => async ({name,age,sex,address,phone,email,password})=>{
+     try {
+    // Convert age to integer
+    const intAge = parseInt(age, 10);
+
+    const data = {
+      name,
+      age: intAge,
+      sex,
+      address,
+      phone,
+      email,
+      password
     }
 
     const  response = await mediAPI.post("/api/auth/signup",data,config);
@@ -59,15 +69,29 @@ const RegisterUser = dispatch => async ({name,age,sex,address,phone,email,passow
         dispatch({ type: "register", payload: response.data });
 }
 catch(e) {
-    console.log(e)
+    console.log(e);
+      dispatch({ type: "login_status", payload: 400 });
 }   
 }
+
+const clearUserRegisterStatus = dispatch => () => {
+    dispatch({ type: "clear_register_status" });
+};
+
+
+
 export const {Provider , Context}=CreateDataContext(
     AuthReducer,
     {
-        UserLogin
+        UserLogin,
+        RegisterUser,
+        clearLoginStatus,
+        clearUserRegisterStatus
     },{
         LoginData:[],
         LoginStatus:"",
+        RegisterData:[],
+        Registerstatus:""
+
     }
 )
