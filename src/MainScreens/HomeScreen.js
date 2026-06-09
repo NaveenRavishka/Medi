@@ -1,236 +1,14 @@
-// import React, { useState } from 'react';
-// import { Box, Button, TextField, Typography, Paper, MenuItem } from '@mui/material';
 
-// export default function HomeScreen() {
-//   const [formData, setFormData] = useState({
-//     age: '',
-//     sex: '', // 1 = male, 0 = female
-//     cp: '', // chest pain type
-//     trestbps: '',
-//     chol: '',
-//     fbs: '', // fasting blood sugar
-//     restecg: '', // resting ECG results
-//     thalach: '',
-//     exang: '', // exercise-induced angina
-//     oldpeak: '',
-//     slope: '',
-//     ca: '',
-//     thal: ''
-//   });
-
-//   const handleChange = (e) => {
-//     setFormData({
-//       ...formData,
-//       [e.target.name]: e.target.value
-//     });
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     console.log("Submitted data:", formData);
-
-//     // Here you can send it to backend or do ML prediction
-//     alert('Data submitted! Check console for details.');
-//   };
-
-//   return (
-//     <Box sx={{ p: 3 }}>
-//       <Typography variant="h4" gutterBottom>
-//         Enter Your Blood & Heart Details
-//       </Typography>
-//       <Paper sx={{ p: 3, maxWidth: 600 }}>
-//         <form onSubmit={handleSubmit}>
-//           <TextField
-//             fullWidth
-//             label="Age"
-//             name="age"
-//             type="number"
-//             margin="normal"
-//             value={formData.age}
-//             onChange={handleChange}
-//             required
-//           />
-
-//           <TextField
-//             fullWidth
-//             select
-//             label="Sex"
-//             name="sex"
-//             margin="normal"
-//             value={formData.sex}
-//             onChange={handleChange}
-//             required
-//           >
-//             <MenuItem value={1}>Male</MenuItem>
-//             <MenuItem value={0}>Female</MenuItem>
-//           </TextField>
-
-//           <TextField
-//             fullWidth
-//             select
-//             label="Chest Pain Type (cp)"
-//             name="cp"
-//             margin="normal"
-//             value={formData.cp}
-//             onChange={handleChange}
-//             required
-//           >
-//             <MenuItem value={1}>Typical Angina</MenuItem>
-//             <MenuItem value={2}>Atypical Angina</MenuItem>
-//             <MenuItem value={3}>Non-anginal Pain</MenuItem>
-//             <MenuItem value={4}>Asymptomatic</MenuItem>
-//           </TextField>
-
-//           <TextField
-//             fullWidth
-//             label="Resting Blood Pressure (trestbps)"
-//             name="trestbps"
-//             type="number"
-//             margin="normal"
-//             value={formData.trestbps}
-//             onChange={handleChange}
-//             required
-//           />
-
-//           <TextField
-//             fullWidth
-//             label="Cholesterol (chol)"
-//             name="chol"
-//             type="number"
-//             margin="normal"
-//             value={formData.chol}
-//             onChange={handleChange}
-//             required
-//           />
-
-//           <TextField
-//             fullWidth
-//             select
-//             label="Fasting Blood Sugar > 120 mg/dl?"
-//             name="fbs"
-//             margin="normal"
-//             value={formData.fbs}
-//             onChange={handleChange}
-//             required
-//           >
-//             <MenuItem value={1}>Yes</MenuItem>
-//             <MenuItem value={0}>No</MenuItem>
-//           </TextField>
-
-//           <TextField
-//             fullWidth
-//             select
-//             label="Resting ECG (restecg)"
-//             name="restecg"
-//             margin="normal"
-//             value={formData.restecg}
-//             onChange={handleChange}
-//             required
-//           >
-//             <MenuItem value={0}>Normal</MenuItem>
-//             <MenuItem value={1}>ST-T wave abnormality</MenuItem>
-//             <MenuItem value={2}>Left ventricular hypertrophy</MenuItem>
-//           </TextField>
-
-//           <TextField
-//             fullWidth
-//             label="Max Heart Rate Achieved (thalach)"
-//             name="thalach"
-//             type="number"
-//             margin="normal"
-//             value={formData.thalach}
-//             onChange={handleChange}
-//             required
-//           />
-
-//           <TextField
-//             fullWidth
-//             select
-//             label="Exercise Induced Angina (exang)"
-//             name="exang"
-//             margin="normal"
-//             value={formData.exang}
-//             onChange={handleChange}
-//             required
-//           >
-//             <MenuItem value={1}>Yes</MenuItem>
-//             <MenuItem value={0}>No</MenuItem>
-//           </TextField>
-
-//           <TextField
-//             fullWidth
-//             label="Oldpeak (ST depression)"
-//             name="oldpeak"
-//             type="number"
-//             margin="normal"
-//             value={formData.oldpeak}
-//             onChange={handleChange}
-//             required
-//           />
-
-//           <TextField
-//             fullWidth
-//             select
-//             label="Slope of peak exercise ST segment"
-//             name="slope"
-//             margin="normal"
-//             value={formData.slope}
-//             onChange={handleChange}
-//             required
-//           >
-//             <MenuItem value={1}>Upsloping</MenuItem>
-//             <MenuItem value={2}>Flat</MenuItem>
-//             <MenuItem value={3}>Downsloping</MenuItem>
-//           </TextField>
-
-//           <TextField
-//             fullWidth
-//             select
-//             label="Number of Major Vessels (ca)"
-//             name="ca"
-//             margin="normal"
-//             value={formData.ca}
-//             onChange={handleChange}
-//             required
-//           >
-//             <MenuItem value={0}>0</MenuItem>
-//             <MenuItem value={1}>1</MenuItem>
-//             <MenuItem value={2}>2</MenuItem>
-//             <MenuItem value={3}>3</MenuItem>
-//           </TextField>
-
-//           <TextField
-//             fullWidth
-//             select
-//             label="Thalassemia (thal)"
-//             name="thal"
-//             margin="normal"
-//             value={formData.thal}
-//             onChange={handleChange}
-//             required
-//           >
-//             <MenuItem value={3}>Normal</MenuItem>
-//             <MenuItem value={6}>Fixed Defect</MenuItem>
-//             <MenuItem value={7}>Reversable Defect</MenuItem>
-//           </TextField>
-
-//           <Button type="submit" variant="contained" fullWidth sx={{ mt: 3 }}>
-//             Submit
-//           </Button>
-//         </form>
-//       </Paper>
-//     </Box>
-//   );
-// }
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Box, Button, TextField, Typography, Paper, MenuItem } from "@mui/material";
+import { Context as SavePredicValuesContext } from "../Context/SavePredicValuesContext";
 
 export default function HealthApp() {
 
   // files
   const [sugarFile, setSugarFile] = useState(null);
   const [cholFile, setCholFile] = useState(null);
-
+const { SavePredictData } = useContext(SavePredicValuesContext);
   // extracted values
   const [reportData, setReportData] = useState({
     fbs: "",
@@ -355,6 +133,12 @@ export default function HealthApp() {
 
     setResult(data.prediction);
     setProb(data.probability);
+
+    await SavePredictData({
+  ...finalData,
+  prediction: data.prediction,
+  probability: data.probability
+});
   };
 
   const ready = reportData.fbs !== "" && reportData.chol !== "";
