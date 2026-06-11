@@ -1,11 +1,13 @@
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useState , } from "react";
 import { Box, Button, TextField, Typography, Paper, MenuItem } from "@mui/material";
 import { Context as SavePredicValuesContext } from "../Context/SavePredicValuesContext";
+import { useNavigate } from "react-router-dom";
 
 export default function HealthApp() {
 
-  // files
+  const navigate = useNavigate();
+const [mealPlan, setMealPlan] = useState(null);
   const [sugarFile, setSugarFile] = useState(null);
   const [cholFile, setCholFile] = useState(null);
 const { SavePredictData } = useContext(SavePredicValuesContext);
@@ -133,7 +135,7 @@ const { SavePredictData } = useContext(SavePredicValuesContext);
 
     setResult(data.prediction);
     setProb(data.probability);
-
+setMealPlan(data.meal_plan);
     await SavePredictData({
   ...finalData,
   prediction: data.prediction,
@@ -194,10 +196,11 @@ const { SavePredictData } = useContext(SavePredicValuesContext);
 
           <TextField fullWidth select label="Chest Pain Type" name="cp"
             margin="normal" value={formData.cp} onChange={handleChange} required>
-            <MenuItem value={1}>Typical Angina</MenuItem>
-            <MenuItem value={2}>Atypical Angina</MenuItem>
-            <MenuItem value={3}>Non-anginal Pain</MenuItem>
-            <MenuItem value={4}>Asymptomatic</MenuItem>
+           <MenuItem value={0}>Typical Angina</MenuItem>
+<MenuItem value={0}>Typical Angina</MenuItem>
+<MenuItem value={1}>Atypical Angina</MenuItem>
+<MenuItem value={2}>Non-anginal Pain</MenuItem>
+<MenuItem value={3}>Asymptomatic</MenuItem>
           </TextField>
 
           <TextField fullWidth label="Blood Pressure" name="trestbps"
@@ -221,15 +224,24 @@ const { SavePredictData } = useContext(SavePredicValuesContext);
             <MenuItem value={0}>No</MenuItem>
           </TextField>
 
-          <TextField fullWidth label="Oldpeak" name="oldpeak"
-            type="number" margin="normal" value={formData.oldpeak}
-            onChange={handleChange} required />
+         <TextField
+  fullWidth
+  label="Oldpeak"
+  name="oldpeak"
+  type="number"
+  inputProps={{ min: 0, max: 6.5, step: 0.1 }}
+  margin="normal"
+  value={formData.oldpeak}
+  onChange={handleChange}
+  required
+/>
 
           <TextField fullWidth select label="Slope" name="slope"
             margin="normal" value={formData.slope} onChange={handleChange} required>
-            <MenuItem value={1}>Upsloping</MenuItem>
-            <MenuItem value={2}>Flat</MenuItem>
-            <MenuItem value={3}>Downsloping</MenuItem>
+           <MenuItem value={0}>Upsloping</MenuItem>
+<MenuItem value={1}>Flat</MenuItem>
+<MenuItem value={2}>Downsloping</MenuItem>
+<MenuItem value={2}>Downsloping</MenuItem>
           </TextField>
 
           <TextField fullWidth select label="Ca" name="ca"
@@ -270,6 +282,21 @@ const { SavePredictData } = useContext(SavePredicValuesContext);
           <Typography>
             Probability: {(prob * 100).toFixed(2)}%
           </Typography>
+           <Button
+      variant="outlined"
+      sx={{ mt: 2 }}
+      onClick={() =>
+        navigate("/MealPlanScreen", {
+          state: {
+            result,
+            prob,
+            mealPlan
+          }
+        })
+      }
+    >
+      Check Meal Plan
+    </Button>
         </Paper>
       )}
 

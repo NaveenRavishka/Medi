@@ -6,7 +6,7 @@ import HistoryScreen from './MainScreens/HistoryScreen';
 import HomeScreen from './MainScreens/HomeScreen';
 import LoginScreen from './Screens/LoginPage';
 import SignupScreen from './Screens/SignupPage';
-
+import MealPlanScreen from './MainScreens/MealPlanScreen';
 import { Provider as AuthProvider } from "./Context/AuthContext";
 import { Provider as SavePredictProvider} from "./Context/SavePredicValuesContext";
 
@@ -21,6 +21,7 @@ function App() {
           <Route path="/" element={<SideDrawer />}>
             <Route path="HomeScreen" element={<HomeScreen />} />
             <Route path="HistoryScreen" element={<HistoryScreen />} />
+            <Route path="MealPlanScreen" element={<MealPlanScreen />} />
             <Route path="*" element={<HomeScreen />} />
           </Route>
         </Routes>
