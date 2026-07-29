@@ -194,39 +194,84 @@ setMealPlan(data.meal_plan);
             <MenuItem value={0}>Female</MenuItem>
           </TextField>
 
-          <TextField fullWidth select label="Chest Pain Type" name="cp"
-            margin="normal" value={formData.cp} onChange={handleChange} required>
-           <MenuItem value={0}>Typical Angina</MenuItem>
-<MenuItem value={0}>Typical Angina</MenuItem>
-<MenuItem value={1}>Atypical Angina</MenuItem>
-<MenuItem value={2}>Non-anginal Pain</MenuItem>
-<MenuItem value={3}>Asymptomatic</MenuItem>
-          </TextField>
-
-          <TextField fullWidth label="Blood Pressure" name="trestbps"
-            type="number" margin="normal" value={formData.trestbps}
-            onChange={handleChange} required />
-
-          <TextField fullWidth select label="Rest ECG" name="restecg"
-            margin="normal" value={formData.restecg} onChange={handleChange} required>
-            <MenuItem value={0}>Normal</MenuItem>
-            <MenuItem value={1}>Abnormal</MenuItem>
-            <MenuItem value={2}>LVH</MenuItem>
-          </TextField>
-
-          <TextField fullWidth label="Max Heart Rate" name="thalach"
-            type="number" margin="normal" value={formData.thalach}
-            onChange={handleChange} required />
-
-          <TextField fullWidth select label="Exercise Angina" name="exang"
-            margin="normal" value={formData.exang} onChange={handleChange} required>
-            <MenuItem value={1}>Yes</MenuItem>
-            <MenuItem value={0}>No</MenuItem>
-          </TextField>
-
          <TextField
   fullWidth
-  label="Oldpeak"
+  select
+  label="Type of Chest Pain"
+  helperText="Choose the type of chest pain experienced by the patient."
+  name="cp"
+  margin="normal"
+  value={formData.cp}
+  onChange={handleChange}
+  required
+>
+  <MenuItem value={0}>Typical Angina (Pain during physical activity)</MenuItem>
+  <MenuItem value={1}>Atypical Angina (Unusual chest pain)</MenuItem>
+  <MenuItem value={2}>Non-anginal Pain (Pain not related to the heart)</MenuItem>
+  <MenuItem value={3}>No Chest Pain (Asymptomatic)</MenuItem>
+</TextField>
+
+<TextField
+  fullWidth
+  label="Resting Blood Pressure (mmHg)"
+  helperText="Example: 120 or 130 mmHg."
+  name="trestbps"
+  type="number"
+  margin="normal"
+  value={formData.trestbps}
+  onChange={handleChange}
+  required
+/>
+
+
+      <TextField
+  fullWidth
+  select
+  label="ECG (Heart Test) Result"
+  helperText="Select the result shown in your ECG report."
+  name="restecg"
+  margin="normal"
+  value={formData.restecg}
+  onChange={handleChange}
+  required
+>
+  <MenuItem value={0}>Normal Heart Test</MenuItem>
+  <MenuItem value={1}>Minor Changes Found</MenuItem>
+  <MenuItem value={2}>Heart Muscle Changes Found</MenuItem>
+</TextField>
+
+
+          <TextField
+  fullWidth
+  label="Maximum Heart Rate Achieved"
+  helperText="Maximum heart rate reached during the exercise test."
+  name="thalach"
+  type="number"
+  margin="normal"
+  value={formData.thalach}
+  onChange={handleChange}
+  required
+/>
+
+        <TextField
+  fullWidth
+  select
+  label="Chest Pain During Exercise"
+  helperText="Did the patient experience chest pain during exercise?"
+  name="exang"
+  margin="normal"
+  value={formData.exang}
+  onChange={handleChange}
+  required
+>
+  <MenuItem value={1}>Yes</MenuItem>
+  <MenuItem value={0}>No</MenuItem>
+</TextField>
+
+     <TextField
+  fullWidth
+  label="ST Depression (Oldpeak)"
+  helperText="Enter the ST depression value from the ECG report (e.g. 1.5)."
   name="oldpeak"
   type="number"
   inputProps={{ min: 0, max: 6.5, step: 0.1 }}
@@ -236,29 +281,89 @@ setMealPlan(data.meal_plan);
   required
 />
 
-          <TextField fullWidth select label="Slope" name="slope"
-            margin="normal" value={formData.slope} onChange={handleChange} required>
-           <MenuItem value={0}>Upsloping</MenuItem>
-<MenuItem value={1}>Flat</MenuItem>
-<MenuItem value={2}>Downsloping</MenuItem>
-<MenuItem value={2}>Downsloping</MenuItem>
-          </TextField>
+          <TextField
+  fullWidth
+  select
+  label="Exercise ECG (ST Segment Slope)"
+  helperText="Choose the value from your ECG or treadmill test report. If unsure, ask your doctor."
+  name="slope"
+  margin="normal"
+  value={formData.slope}
+  onChange={handleChange}
+  required
+>
+  <MenuItem value={0}>
+    Upsloping (Usually Normal)
+  </MenuItem>
 
-          <TextField fullWidth select label="Ca" name="ca"
-            margin="normal" value={formData.ca} onChange={handleChange} required>
-            <MenuItem value={0}>0</MenuItem>
-            <MenuItem value={1}>1</MenuItem>
-            <MenuItem value={2}>2</MenuItem>
-            <MenuItem value={3}>3</MenuItem>
-          </TextField>
+  <MenuItem value={1}>
+    Flat (May indicate heart problems)
+  </MenuItem>
 
-          <TextField fullWidth select label="Thal" name="thal"
+  <MenuItem value={2}>
+    Downsloping (Higher chance of heart disease)
+  </MenuItem>
+</TextField>
+
+       <TextField
+  fullWidth
+  select
+  label="Number of Major Blood Vessels (Angiography)"
+  helperText="Select the number shown in your angiography (heart blood vessel) report. If you have never had this test, please ask your doctor."
+  name="ca"
+  margin="normal"
+  value={formData.ca}
+  onChange={handleChange}
+  required
+>
+  <MenuItem value={0}>
+    0 - No major blood vessels affected
+  </MenuItem>
+
+  <MenuItem value={1}>
+    1 - One major blood vessel affected
+  </MenuItem>
+
+  <MenuItem value={2}>
+    2 - Two major blood vessels affected
+  </MenuItem>
+
+  <MenuItem value={3}>
+    3 - Three major blood vessels affected
+  </MenuItem>
+</TextField>
+
+          {/* <TextField fullWidth select label="Thal" name="thal"
             margin="normal" value={formData.thal} onChange={handleChange} required>
             <MenuItem value={3}>Normal</MenuItem>
             <MenuItem value={6}>Fixed defect</MenuItem>
             <MenuItem value={7}>Reversible defect</MenuItem>
-          </TextField>
+          </TextField> */}
 
+<TextField
+  fullWidth
+  select
+  label="Thalassemia Test Result"
+  helperText="Thalassemia is a blood condition that affects hemoglobin production. Select the result from your medical report."
+  name="thal"
+  margin="normal"
+  value={formData.thal}
+  onChange={handleChange}
+  required
+>
+  <MenuItem value={3}>
+    Normal - No thalassemia abnormality detected
+  </MenuItem>
+
+  <MenuItem value={6}>
+    Fixed Defect - Permanent thalassemia-related abnormality detected
+  </MenuItem>
+
+  <MenuItem value={7}>
+    Reversible Defect - Changeable thalassemia-related abnormality detected
+  </MenuItem>
+
+</TextField>
           <Button
             type="submit"
             variant="contained"

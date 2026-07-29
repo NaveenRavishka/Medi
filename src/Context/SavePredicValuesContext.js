@@ -9,7 +9,16 @@ const SavePredictReducer = ( state,  action  )=>{
         case 'savePredict_status':
             return{...state, SavedataStatus:action.payload};
         case 'clear_savePredict_staus':
-            return{...state, SavedataStatus:""};        
+            return{...state, SavedataStatus:""};  
+        case 'getAllPredict':
+            return {...state, Getall : action.payload};
+        case 'getAllPredict_Status':
+            return {...state, GetallStatus:action.payload};
+        case 'clear_getAllPredict':
+            return {...state ,GetallStatus:""};       
+            default:
+    return state;  
+
 
     }
 };
@@ -60,14 +69,31 @@ const clearsaveStatus = dispatch => () => {
     dispatch({ type: "clear_savePredict_staus" });
 };
 
+const GetAllDetails = (dispatch) => async () =>{
+    try{
+        const response = await mediAPI.get("/api/patient/Predicthistory");
+        dispatch({type:"getAllPredict", payload:response.data});
+        dispatch({type:"getAllPredict_Status", payload:response.status});
+        console.log("getAllPredict",response.data);
+        console.log("getAllPredict_Status",response.status);
+    }catch (err){
+        console.log(err.message);
+        dispatch({type:"getAllPredict_Status", payload: 400})
+     
+    }
+}
 export const {Provider , Context}=CreateDataContext(
     SavePredictReducer,
     {
         SavePredictData,
-        clearsaveStatus
+        clearsaveStatus,
+        GetAllDetails
     },{
         SaveData:[],
         SavedataStatus:"",
+        Getall:[],
+        GetallStatus:""
+
        
 
     }
